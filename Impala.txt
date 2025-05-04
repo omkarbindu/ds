@@ -1,0 +1,49 @@
+# if already installed go to step 2.4
+2.1 Install Hadoop (CDH)
+Install Hadoop using Cloudera Manager or package managers like yum or apt. Here's how to install the required components on Ubuntu:
+
+sudo apt-get update
+sudo apt-get install -y Hadoop
+
+2.2 Install Impala
+sudo apt-get install impala impala-server impala-client
+
+2.3 Start Impala Services
+# Start the Impala Catalog Server
+sudo service impala-catalog-server start
+
+# Start the Impala StateStore
+sudo service impala-statestore start
+
+# Start the Impala Daemon
+sudo service impala-server start
+
+2.4 Verify the Installation
+impala-shell
+
+# main queries
+CREATE DATABASE example_db;
+
+USE example_db;
+
+CREATE TABLE employees (
+    id INT,
+    first_name STRING,
+    last_name STRING,
+    hire_date DATE,
+    salary FLOAT
+);
+
+INSERT INTO employees VALUES (1, 'John', 'Doe', '2023-06-01', 50000);
+INSERT INTO employees VALUES (2, 'Jane', 'Smith', '2022-04-15', 60000);
+INSERT INTO employees VALUES (3, 'Michael', 'Johnson', '2021-07-10', 70000);
+
+SELECT * FROM employees;
+
+SELECT first_name, salary FROM employees;
+
+SELECT * FROM employees WHERE salary > 55000;
+
+SELECT * FROM employees ORDER BY salary DESC;
+
+SELECT AVG(salary) FROM employees;
